@@ -1,0 +1,20 @@
+﻿<h5>ChildCounter = @CurrentCount</h5>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Increment</button>
+
+@code {
+    [Parameter]
+    public int CurrentCount { get; set; }
+
+    [Parameter]
+    public int IncrementAmount { get; set; }
+
+    [Parameter]
+    public EventCallback<int> CurrentCountChanged { get; set; }
+
+    private void IncrementCount()
+    {
+        CurrentCount += IncrementAmount;
+        CurrentCountChanged.InvokeAsync(CurrentCount);
+    }
+}

@@ -1,0 +1,10 @@
+﻿@page "/parameterdemo/{SimpleParameter:int}"
+
+<h3>SimpleParameter</h3>
+
+<h5>Parameter value: @SimpleParameter</h5>
+
+@code {
+    [Parameter]
+    public int SimpleParameter { get; set; }
+}

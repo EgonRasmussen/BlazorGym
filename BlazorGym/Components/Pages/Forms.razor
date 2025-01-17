@@ -1,0 +1,70 @@
+﻿@page "/formdemo"
+
+@using System.Globalization
+@using BlazorGym.Components
+@using System.ComponentModel.DataAnnotations;
+
+<PageTitle>Home</PageTitle>
+
+<div class="bg-light">
+    <a href="https://getbootstrap.com/docs/5.3/forms/overview/">Bootstrap Forms</a>
+    <br />
+    <a href="https://getbootstrap.com/docs/5.3/forms/floating-labels">Floating Labels</a>
+</div>
+<br />
+
+<p>
+    <b>CurrentCulture</b>: @CultureInfo.CurrentCulture
+</p>
+
+<p>Form status: @status</p>
+<p>Price: @newProduct.Price</p>
+
+<div class="display-5 my-5">Horizontal form with Floating labels</div>
+
+<div class="col-6">
+    <EditForm Model="newProduct" OnValidSubmit="HandleValidSubmit" OnInvalidSubmit="HandleInvalidSubmit">
+        <DataAnnotationsValidator />
+
+        <div class="form-floating mb-3">
+            <InputText @bind-Value="newProduct.Name" class="form-control" id="name" placeholder="Your name, max. 10 char." />
+            <label for="name" class="form-label">Name</label>
+            <ValidationMessage For="@(() => newProduct.Name)" />
+        </div>
+
+        <div class="form-floating mb-3">
+            <InputNumber @bind-Value="newProduct.Price" class="form-control" id="price" placeholder="Price" />
+            <label for="price" class="form-label">Price</label>
+            <ValidationMessage For="@(() => newProduct.Price)" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Order</button>
+    </EditForm>
+</div>
+
+@code {
+    Product newProduct = new Product() { Price = 1999.99M };
+    string status = "Invalid";
+
+    private void HandleValidSubmit()
+    {
+        //Do database stuff
+        status = "Valid";
+    }
+
+    private void HandleInvalidSubmit()
+    {
+        status = "Invalid";
+    }
+
+    public class Product
+    {
+        [Required]
+        [StringLength(10, ErrorMessage = "Name is too long.")]
+        public string? Name { get; set; } = string.Empty;
+
+        [Required]
+        [Range(1, 10000, ErrorMessage = "Price must be between 1 and 10 000")]
+        public decimal Price { get; set; }
+    }
+}

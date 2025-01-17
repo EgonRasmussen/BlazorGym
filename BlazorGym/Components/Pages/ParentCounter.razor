@@ -1,0 +1,10 @@
+﻿@page "/parentcounter"
+
+<h3>ParentCounter = @currentCount</h3>
+
+<ChildCounter @bind-CurrentCount=currentCount IncrementAmount="incrementAmount" />
+
+@code {
+    int currentCount = 0;
+    int incrementAmount = 10;
+}
