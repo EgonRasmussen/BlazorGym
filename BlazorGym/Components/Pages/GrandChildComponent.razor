@@ -1,0 +1,13 @@
+﻿@page "/grandchildcomponent"
+
+<h3>GrandChildComponent</h3>
+<p>The current theme is: @Theme</p>
+<p>The value of MyProperty is: @MyProperty</p>
+
+@code {
+    [CascadingParameter]
+    public string? Theme { get; set; }
+
+    [CascadingParameter(Name = "MyCascadingParameter")]
+    public string? MyProperty { get; set; }
+}

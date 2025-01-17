@@ -1,0 +1,15 @@
+﻿@page "/childcomponent"
+
+<h5>Child Component</h5>
+<p>The current theme is: @Theme</p>
+
+<GrandChildComponent />
+
+@code {
+    [CascadingParameter]
+    public string? Theme { get; set; }
+
+    [CascadingParameter(Name = "MyCascadingParameter")]
+    public string? MyProperty { get; set; }
+}
+
