@@ -1,9 +1,11 @@
-﻿<h3>Parent Component</h3>
+﻿@page "/parentcomponent"
+
+<h3>Parent Component</h3>
 
 <CascadingValue Value="MyProperty" Name="MyCascadingParameter">
     <ChildComponent />
 </CascadingValue> 
 
 @code {
-    public string MyProperty { get; set; } = "My property";
+    string MyProperty = "My property";
 }
