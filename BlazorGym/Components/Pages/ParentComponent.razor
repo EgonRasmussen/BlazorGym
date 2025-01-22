@@ -1,11 +1,15 @@
 ﻿@page "/parentcomponent"
 
-<h3>Parent Component</h3>
+<div style="border:solid gray 1px; padding:10px">
 
-<CascadingValue Value="MyProperty" Name="MyCascadingParameter">
-    <ChildComponent />
-</CascadingValue> 
+    <h3>Parent Component</h3>
+    <p>MyProperty = @MyProperty</p>
+
+    <CascadingValue Value="MyProperty" Name="MyCascadingParameter">
+        <ChildComponent />
+    </CascadingValue>
+</div>
 
 @code {
-    string MyProperty = "My property";
+    string MyProperty = "EUC Syd";
 }
