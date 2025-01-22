@@ -1,10 +1,18 @@
 ﻿@page "/parentcounter"
 
+@* IncrementAmout = one-way binding, from parent to child 
+   @bind-CurrentCount = two-way binding
+*@
+
+<div style="border:solid gray 1px; padding:10px">
 <h3>ParentCounter = @currentCount</h3>
 
 <ChildCounter @bind-CurrentCount=currentCount IncrementAmount="incrementAmount" />
+</div>
 
 @code {
     int currentCount = 0;
     int incrementAmount = 10;
 }
+
+
