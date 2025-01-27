@@ -1,9 +1,122 @@
-﻿# Two-way binding i Blazor
+﻿# One-way binding i Blazor
+Vi lægger ud med default Counter eksemplet:
 
 ```csharp
-<h5>ChildCounter = @CurrentCount</h5>
+@page "/counter"
 
-<button class="btn btn-primary" @onclick="IncrementCount">Increment</button>
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}
+```
+
+&nbsp;
+
+## Nu med Parameters:
+Nu oprettes to Parameters, som dog ikke ændrer noget (endnu):
+
+```csharp
+@page "/counter"
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @CurrentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    [Parameter]
+    public int IncrementAmount { get; set; } = 1;
+    [Parameter]
+    public int CurrentCount { get; set; } = 0;
+
+    private void IncrementCount()
+    {
+        CurrentCount++;
+    }
+}
+```
+
+&nbsp;
+
+## Opdeling i to componenter
+Det begynder at blive smart når vi opdeler i to componenter:
+
+**ParentCounter.razor:**
+
+```csharp
+@page "/parentcounter"
+
+<h3>ParentCounter = @currentCount</h3>
+
+<ChildCounter CurrentCount=currentCount IncrementAmount="incrementAmount" />
+
+@code {
+    int currentCount = 0;
+    int incrementAmount = 10;
+}
+```
+
+**ChildCounter.razor:**
+```csharp
+    <h5>ChildCounter = @CurrentCount</h5>
+    <button class="btn btn-primary" @onclick="IncrementCount">Increment</button>
+</div>
+
+@code {
+    [Parameter]
+    public int CurrentCount { get; set; }
+
+    [Parameter]
+    public int IncrementAmount { get; set; }
+
+    private void IncrementCount()
+    {
+        CurrentCount += IncrementAmount;
+    }
+}
+```
+
+Men desværre opdateres ParentCounter ikke når ChildCounter opdateres. Dette kan løses med Two-way binding:
+
+
+&nbsp;
+
+# Two-way binding i Blazor
+
+**ParentCounter.razor:**
+
+```csharp
+@page "/parentcounter"
+
+<h3>ParentCounter = @currentCount</h3>
+
+ <ChildCounter @bind-CurrentCount=currentCount IncrementAmount="incrementAmount" />
+
+@code {
+    int currentCount = 0;
+    int incrementAmount = 10;
+}
+```
+
+**ChildCounter.razor:**
+```csharp
+ <h5>ChildCounter = @CurrentCount</h5>
+ <button class="btn btn-primary" @onclick="IncrementCount">Increment</button>
 
 @code {
     [Parameter]
@@ -21,7 +134,7 @@
         CurrentCountChanged.InvokeAsync(CurrentCount);
     }
 }
-```
+ ```
 
 #### **Forklaring**:
 - **[Parameter]:** 
@@ -34,49 +147,5 @@
 
 ---
 
-### **ParentCounter.razor**
 
-```csharp
-@page "/parentcounter"
-
-<h3>ParentCounter = @currentCount</h3>
-
-<ChildCounter @bind-CurrentCount=currentCount IncrementAmount="incrementAmount" />
-
-@code {
-    int currentCount = 0;
-    int incrementAmount = 10;
-}
-```
-
-#### **Forklaring**:
-- **`@bind-CurrentCount`**:
-  - Binder `currentCount` i forælderen til `CurrentCount` i barnet.
-  - Binder også opdateringer fra barnet til forælderen. Dette er essensen af **two-way binding** i Blazor.
-  
-- **`IncrementAmount`**:
-  - Sender værdien af `incrementAmount` (10) til `ChildCounter`, som bruges til at styre, hvor meget tælleren forøges med.
-
----
-
-### **Two-way binding: Hvordan det fungerer**
-
-1. Når du klikker på knappen i `ChildCounter`:
-   - `CurrentCount` øges med værdien af `IncrementAmount`.
-   - Den nye værdi sendes tilbage til forælderen ved hjælp af `CurrentCountChanged.InvokeAsync(CurrentCount)`.
-
-2. I `ParentCounter`:
-   - `@bind-CurrentCount` sørger for, at `currentCount` opdateres automatisk med den nye værdi fra barnet.
-
-3. Resultatet:
-   - `ParentCounter` og `ChildCounter` holder begge styr på den samme værdi (`currentCount`) og opdateres automatisk i begge retninger.
-
----
-
-### Visualisering af dataflow:
-1. **Forælder til barn**:
-   - Initialiser `CurrentCount` og `IncrementAmount` i barnet.
-   
-2. **Barn til forælder**:
-   - Når `ChildCounter` opdaterer `CurrentCount`, sendes den nye værdi tilbage til `ParentCounter`.
 
