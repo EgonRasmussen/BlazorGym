@@ -145,7 +145,11 @@ Men desværre opdateres ParentCounter ikke når ChildCounter opdateres. Dette ka
 - **Two-way binding**:
   - Når knappen klikkes, opdaterer `IncrementCount` metoden `CurrentCount` og sender den nye værdi tilbage til den overordnede komponent med `CurrentCountChanged.InvokeAsync(CurrentCount)`.
 
----
+Fordele ved EventCallback:
+- EventCallback benytter structs, hvilket betyder at vi ikke behøver foretage en null-check.
+- EventCallback er asyncron og kan awaites.
+- Blazor eksekverer automatisk StateHasChanged() på den overordnede komponent, når EventCallback kaldes.
+  Dette sikrer at UI opdateres korrekt.
 
 
 
