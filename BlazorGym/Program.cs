@@ -1,10 +1,16 @@
 using BlazorGym.Components;
+using BlazorGym.Models;
+using Microsoft.AspNetCore.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+//Root-level cascading values: https://learn.microsoft.com/en-us/aspnet/core/blazor/components/cascading-values-and-parameters
+builder.Services.AddCascadingValue(sp => new Dalek { Units = 123 });
+builder.Services.AddCascadingValue("AlphaGroup", sp => new Dalek { Units = 456 });
 
 builder.Services.AddLocalization();
 

@@ -1,5 +1,7 @@
 ﻿<CascadingValue Value="Theme">
 
+    <button class="btn btn-outline-primary" @onclick="btnUpdateTheme">Update Theme</button>
+
     <Router AppAssembly="typeof(Program).Assembly">
         <Found Context="routeData">
             <RouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)" />
@@ -11,4 +13,9 @@
 
 @code {
     public string Theme { get; set; } = "Dark"; // Temaet, der skal deles med alle komponenter
+
+    public void btnUpdateTheme()
+    {
+        Theme = "Light";
+    }
 }

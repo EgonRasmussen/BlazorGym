@@ -1,14 +1,28 @@
-﻿<div style="border:solid gray 1px; padding:10px">
+﻿@using BlazorGym.Models
+
+<div style="border:solid gray 1px; padding:10px">
 
     <h6><b>GrandChildComponent</b></h6>
     <p>The current theme is: @Theme</p>
     <p>The value of MyProperty is: @MyProperty</p>
+    <ul>
+        <li>Dalek Units: @Dalek?.Units</li>
+        <li>Alpha Group Dalek Units: @AlphaGroupDalek?.Units</li>
+    </ul>
 </div>
 
 @code {
+    // Component-level cascading values
     [CascadingParameter]
     public string? Theme { get; set; }
 
     [CascadingParameter(Name = "MyCascadingParameter")]
     public string? MyProperty { get; set; }
+
+    // Root-level cascading values
+    [CascadingParameter]
+    public Dalek? Dalek { get; set; }
+
+    [CascadingParameter(Name = "AlphaGroup")]
+    public Dalek? AlphaGroupDalek { get; set; }
 }

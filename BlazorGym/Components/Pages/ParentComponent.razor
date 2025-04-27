@@ -1,5 +1,7 @@
 ﻿@page "/parentcomponent"
 
+@using BlazorGym.Models
+
 <div style="border:solid gray 1px; padding:10px">
 
     <h1>Parent Component</h1>
@@ -12,4 +14,7 @@
 
 @code {
     string MyProperty = "EUC Syd";
+
+    [CascadingParameter]
+    public Dalek? Dalek { get; set; }
 }
