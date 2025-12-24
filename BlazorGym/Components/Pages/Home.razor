@@ -3,4 +3,23 @@
 
 <PageTitle>Home</PageTitle>
 
-<title>Velkommen til Home</title>
+<h3>Forms with Blazor Components</h3>
+<EditForm FormName="member-form"
+          OnValidSubmit="Submit"
+          Model="@Member">
+    <div class="form-group mb-0">
+        <button type="submit" class="btn btn-primary">
+            Submit
+        </button>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter]
+    [EditorRequired]
+    public required Member Member { get; set; }
+    public void Submit()
+    {
+        Console.WriteLine(Member.ToJson());
+    }
+}
