@@ -1,4 +1,5 @@
 using BlazorGym.Components;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,10 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddLocalization();
+
+// Register FluentValidation validators as singletons for better performance
+builder.Services.AddSingleton<IValidator<Member>, FluentMemberValidator>();
+
 
 var app = builder.Build();
 
