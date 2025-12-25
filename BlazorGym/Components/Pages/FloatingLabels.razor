@@ -1,4 +1,4 @@
-﻿@page "/formdemo"
+﻿@page "/floating-labels"
 
 @using System.Globalization
 @using BlazorGym.Components
@@ -20,7 +20,26 @@
 <p>Form status: @status</p>
 <p>Price: @newProduct.Price</p>
 
+<div class="display-6 my-5">Horizontal form with Floating labels</div>
+<div class="col-6">
+    <EditForm FormName="ProductForm2" Model="newProduct" OnValidSubmit="HandleValidSubmit" OnInvalidSubmit="HandleInvalidSubmit">
+        <DataAnnotationsValidator />
 
+        <div class="form-floating mb-3">
+            <InputText @bind-Value="newProduct.Name" class="form-control" id="name" placeholder="Your name, max. 10 char." />
+            <label for="name" class="form-label">Name</label>
+            <ValidationMessage For="@(() => newProduct.Name)" />
+        </div>
+
+        <div class="form-floating mb-3">
+            <InputNumber @bind-Value="newProduct.Price" class="form-control" id="price" placeholder="Price" />
+            <label for="price" class="form-label">Price</label>
+            <ValidationMessage For="@(() => newProduct.Price)" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Order</button>
+    </EditForm>
+</div>
 
 <div class="display-6 my-5">Horizontal form with labels</div>
 <div class="col-6">
@@ -47,29 +66,6 @@
     </EditForm>
 </div>
 
-
-
-
-<div class="display-6 my-5">Horizontal form with Floating labels</div>
-<div class="col-6">
-    <EditForm FormName="ProductForm2" Model="newProduct" OnValidSubmit="HandleValidSubmit" OnInvalidSubmit="HandleInvalidSubmit">
-        <DataAnnotationsValidator />
-
-        <div class="form-floating mb-3">
-            <InputText @bind-Value="newProduct.Name" class="form-control" id="name" placeholder="Your name, max. 10 char." />
-            <label for="name" class="form-label">Name</label>
-            <ValidationMessage For="@(() => newProduct.Name)" />
-        </div>
-
-        <div class="form-floating mb-3">
-            <InputNumber @bind-Value="newProduct.Price" class="form-control" id="price" placeholder="Price" />
-            <label for="price" class="form-label">Price</label>
-            <ValidationMessage For="@(() => newProduct.Price)" />
-        </div>
-
-        <button type="submit" class="btn btn-primary">Order</button>
-    </EditForm>
-</div>
 
 @code {
     Product newProduct = new Product() { Price = 1999.99M };
