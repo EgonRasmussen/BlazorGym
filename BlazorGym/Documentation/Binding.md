@@ -125,6 +125,7 @@ Der kan også bindes til andre Events, f.eks. `@bind-value:event="oninput"`, der
   
 - **Two-way binding**:
   - Når knappen klikkes, opdaterer `IncrementCount` metoden `CurrentCount` og sender den nye værdi tilbage til den overordnede komponent med `CurrentCountChanged.InvokeAsync(CurrentCount)`.
+  - Bemærk at det er et krav at have en EventCallback med navnet `CurrentCountChanged` for at kunne bruge `@bind-CurrentCount` i den overordnede komponent.
 
 Fordele ved EventCallback:
 - EventCallback benytter structs, hvilket betyder at vi ikke behøver foretage en null-check.
@@ -132,9 +133,13 @@ Fordele ved EventCallback:
 - Blazor eksekverer automatisk StateHasChanged() på den overordnede komponent, når EventCallback kaldes.
   Dette sikrer at UI opdateres korrekt.
 
-  Since ChildCounter.razor is using two-way binding (it has both CurrentCount parameter and CurrentCountChanged callback), 
-  keeping the "Changed" suffix is the correct pattern for your component. The naming is consistent with Blazor conventions.
 
+** Naming convention:**
+This is the perfect example of when the "Changed" suffix is required.
+When you use @bind-CurrentCount, Blazor automatically:
+1.	Binds the CurrentCount parameter for one-way data flow (parent → child)
+2.	Looks for an EventCallback named CurrentCountChanged for two-way updates (child → parent)
+So the naming convention here is not optional—it's essential for the binding syntax to work. The @bind- directive expects the property name plus "Changed" appended.
 
 
 
