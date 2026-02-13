@@ -2,6 +2,9 @@
 
 <button @onclick="TriggerCallbackToParent">Show</button>
 
+<button @onclick="() => TriggerCallbackToParent.InvokeAsync(new MouseEventArgs { ClientX = 100, ClientY = 200 })">
+    Show with custom coordinates</button>
+
 @code {
     [Parameter]
     public EventCallback<MouseEventArgs> TriggerCallbackToParent { get; set; }
