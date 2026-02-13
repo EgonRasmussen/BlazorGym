@@ -132,5 +132,9 @@ Fordele ved EventCallback:
 - Blazor eksekverer automatisk StateHasChanged() på den overordnede komponent, når EventCallback kaldes.
   Dette sikrer at UI opdateres korrekt.
 
+  Since ChildCounter.razor is using two-way binding (it has both CurrentCount parameter and CurrentCountChanged callback), 
+  keeping the "Changed" suffix is the correct pattern for your component. The naming is consistent with Blazor conventions.
+
+
 
 

@@ -4,3 +4,12 @@
 <PageTitle>Home</PageTitle>
 
 <title>Velkommen til Home</title>
+
+<HomeChild TriggerCallbackToParent="OnChildButtonClicked" />
+
+@code {
+    private void OnChildButtonClicked(MouseEventArgs e)
+    {
+        Console.WriteLine($"Button clicked in HomeChild component at x = {e.ClientX}, y = {e.ClientY}");
+    }
+}

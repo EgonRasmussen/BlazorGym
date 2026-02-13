@@ -1,0 +1,8 @@
+﻿<h3>HomeChild</h3>
+
+<button @onclick="TriggerCallbackToParent">Show</button>
+
+@code {
+    [Parameter]
+    public EventCallback<MouseEventArgs> TriggerCallbackToParent { get; set; }
+}
