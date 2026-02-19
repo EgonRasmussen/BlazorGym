@@ -1,4 +1,4 @@
-﻿@page "/binding"
+﻿@* @page "/binding"
 
 <PageTitle>Counter</PageTitle>
 
@@ -15,7 +15,7 @@
     {
         currentCount++;
     }
-}
+} *@
 
 
 @* @page "/binding"
@@ -36,13 +36,14 @@
 
 
 
-@* @page "/binding"
+@page "/binding"
 
 <PageTitle>Counter</PageTitle>
 
 <h1>Two-way binding</h1>
 
 <p role="status">Current count: @currentCount</p>
+<p role="status">Current increment: @increment</p>
 
 <p><input type="number" @bind-value="@increment" @bind-value:event="oninput" /></p>    
 
@@ -57,6 +58,6 @@
     {
         currentCount += increment;
     }
-} *@
+}
 
 
