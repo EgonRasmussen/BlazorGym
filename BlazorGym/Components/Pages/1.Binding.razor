@@ -42,10 +42,11 @@
 
 <h1>Two-way binding</h1>
 
-<p role="status">Current count: @currentCount</p>
-<p role="status">Current increment: @increment</p>
+<p role="status">Current count: @currentCount</p>   
+<p role="status">Current increment: @increment</p>  @* One-way databinding *@
 
-<p><input type="number" @bind-value="@increment" @bind-value:event="oninput" /></p>    
+<p><input type="number" @bind="@increment" /></p>   @* Two-way databinding (@bind-value and @bind-value:event="onchange" is default) *@
+@* <p><input type="number" @bind-value="@increment" @bind-value:event="oninput" /></p> *@    
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 

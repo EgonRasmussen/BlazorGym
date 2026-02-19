@@ -42,12 +42,17 @@ Der kan også benyttes en Conditional Attribute, her vist med `disabled` attribu
 ## Two-Way Data Binding
 Vises med en `<input>`:
 ```csharp
-<p><input type="number" @bind-value="@increment" /></p>     @* Ny *@
+<p role="status">Current count: @currentCount</p>   
+<p role="status">Current increment: @increment</p>  @* One-way databinding *@
+
+<p><input type="number" @bind="@increment" /></p>   @* Two-way databinding (@bind-value and @bind-value:event="onchange" is default) *@
+@* <p><input type="number" @bind-value="@increment" @bind-value:event="oninput" /></p> *@    
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
     private int currentCount = 0;
+
     private int increment = 1;      // Ny
 
     private void IncrementCount()
